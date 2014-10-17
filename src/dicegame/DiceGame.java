@@ -11,6 +11,16 @@ import dice.DiceCup;
 import dice.Die;
 import dice.LoadedDSix;
 
+/**
+ * This class is a dice game with the following rules: Throws a certain amount
+ * of dice for each player than compares them to find a winner based on the
+ * following criteria in order: Five of a kind beats everything, Four of a kind,
+ * Three of a kind, Pair, Unmatched. The person with the highest unmatched value
+ * wins a tie, if the highest unmatched is the same it is considered a tie game.
+ * 
+ * @author Lyle Cleveland
+ *
+ */
 public class DiceGame implements Playable {
 	private int numPlayers;
 	
@@ -38,14 +48,7 @@ public class DiceGame implements Playable {
 	
 	private int gameWinner = -1;
 	
-	public int getGameWinner() {
-		return gameWinner;
-	}
-	
-	public void setGameWinner(int gameWinner) {
-		this.gameWinner = gameWinner;
-	}
-	
+	// Constructors
 	public DiceGame(Die die) {
 		this(2, die, 5);
 	}
@@ -67,6 +70,16 @@ public class DiceGame implements Playable {
 		this.setDiceCup(new DiceCup(new DSix(), numDice));
 	}
 	
+	// End Constructors
+	
+	/**
+	 * Takes a score string and parses it to return the serialized double for
+	 * ease of use. Ex. a pair of 2s with an unmatched 5 high would be 2.25
+	 * 
+	 * @param one
+	 *            The score string to parse.
+	 * @return double
+	 */
 	private double evalMatch(String one) {
 		String temp = one.substring(0, 2);
 		double num = Integer.parseInt(String.valueOf(one.charAt(2))) / 10.0;
@@ -84,6 +97,15 @@ public class DiceGame implements Playable {
 		return -1.0;
 	}
 	
+	/**
+	 * Evaluates a players roll in accordance with the game rules and returns
+	 * the players score string. Ex. a pair of 2s with an unmatched 5 high would
+	 * be pa25
+	 * 
+	 * @param playerRoll
+	 *            Array containing players rolls.
+	 * @return String
+	 */
 	private String evaluateRoll(int[] playerRoll) {
 		Arrays.sort(playerRoll);
 		int highest = -1;
@@ -123,6 +145,16 @@ public class DiceGame implements Playable {
 		}
 	}
 	
+	/**
+	 * Find the highest unmatched number in the array. Pass -1 to matchedNum to
+	 * parse an array of unmatched numbers.
+	 * 
+	 * @param array
+	 *            The array of numbers to parse.
+	 * @param matchedNum
+	 *            The matched number to skip
+	 * @return int
+	 */
 	private int findHighestNum(int[] array, int matchedNum) {
 		int temp = -1;
 		for (int i : array)
@@ -131,6 +163,11 @@ public class DiceGame implements Playable {
 		return temp;
 	}
 	
+	/**
+	 * Used to compare the players rolls and find a winner. Returns the winner.
+	 * 
+	 * @return int
+	 */
 	private int findWinner() {
 		double highestMatch = -1.0;
 		int winner = -1;
@@ -146,6 +183,9 @@ public class DiceGame implements Playable {
 		return winner;
 	}
 	
+	/**
+	 * Function to populate the player rolls array.
+	 */
 	private void generateRolls() {
 		this.playerRolls = new int[this.numPlayers][this.numDice];
 		for (int i = 0; i < playerRolls.length; ++i) {
@@ -158,36 +198,83 @@ public class DiceGame implements Playable {
 		}
 	}
 	
+	/**
+	 * Get the dice cup that the game is using.
+	 * 
+	 * @return DiceCup
+	 */
 	public DiceCup getDiceCup() {
 		return diceCup;
 	}
 	
+	/**
+	 * Get the die that is currently being used in the game.
+	 * 
+	 * @return Die
+	 */
 	public Die getDie() {
 		return die;
 	}
 	
+	/**
+	 * Get the winner of the game. Returns -1 for tie and 0 for no winner.
+	 * 
+	 * @return int
+	 */
+	public int getGameWinner() {
+		return gameWinner;
+	}
+	
+	/**
+	 * Get the loaded player. Returns -1 if no player is loaded.
+	 * 
+	 * @return int
+	 */
 	public int getLoadedPlayer() {
 		return loadedPlayer;
 	}
 	
+	/**
+	 * Get the number of dice being used to play the game
+	 * 
+	 * @return int
+	 */
 	public int getNumDice() {
 		return numDice;
 	}
 	
+	/**
+	 * Get the number of players in the game.
+	 * 
+	 * @return int
+	 */
 	public int getNumPlayers() {
 		return numPlayers;
 	}
 	
+	/**
+	 * Get the array of rolls that was generated.
+	 * 
+	 * @return int[][]
+	 */
 	public int[][] getPlayerRolls() {
 		return playerRolls;
 	}
 	
+	/**
+	 * The main function to play the game. Returns the winner of the game.
+	 * 
+	 * @return int
+	 */
 	public int play() {
 		this.generateRolls();
 		this.setGameWinner(this.findWinner());
 		return this.getGameWinner();
 	}
 	
+	/**
+	 * Prints the rolls of the last played game to the command line.
+	 */
 	public void printPlayerRolls() {
 		int count = 1;
 		for (int[] i : this.playerRolls) {
@@ -199,28 +286,78 @@ public class DiceGame implements Playable {
 		}
 	}
 	
+	/**
+	 * Set the dice cup to use in the game
+	 * 
+	 * @param diceCup
+	 *            The DiceCup to use.
+	 */
 	public void setDiceCup(DiceCup diceCup) {
 		this.diceCup = diceCup;
 	}
 	
+	/**
+	 * Sets the die to use in the game.
+	 * 
+	 * @param die
+	 *            The die to use.
+	 */
 	public void setDie(Die die) {
+		if (this.getDiceCup().getTypeOfDie() != die)
+			this.getDiceCup().setTypeOfDie(die);
 		this.die = die;
 	}
 	
+	/**
+	 * Sets the game winner.
+	 * 
+	 * @param gameWinner
+	 *            The winner of the game.
+	 */
+	public void setGameWinner(int gameWinner) {
+		this.gameWinner = gameWinner;
+	}
+	
+	/**
+	 * Sets a player to use a loaded die. Default is a LoadedDSix
+	 * 
+	 * @param loadedPlayer
+	 *            The player to use a loaded die.
+	 */
 	public void setLoadedPlayer(int loadedPlayer) {
 		this.loadedPlayer = loadedPlayer;
 		this.loadedDie = new LoadedDSix();
 	}
 	
+	/**
+	 * Sets the player to use a loaded die and the die to use.
+	 * 
+	 * @param playerNum
+	 *            The player to use a loaded die.
+	 * @param loadedDie
+	 *            The die to use.
+	 */
 	public void setLoadedPlayer(int playerNum, Die loadedDie) {
 		this.loadedPlayer = playerNum;
 		this.loadedDie = loadedDie;
 	}
 	
+	/**
+	 * Set the number of dice to use for the game
+	 * 
+	 * @param numDice
+	 *            Number of dice to use.
+	 */
 	public void setNumDice(int numDice) {
 		this.numDice = numDice;
 	}
 	
+	/**
+	 * Set the number of players in the game.
+	 * 
+	 * @param numPlayers
+	 *            Number of players in game.
+	 */
 	public void setNumPlayers(int numPlayers) {
 		this.numPlayers = numPlayers;
 	}
