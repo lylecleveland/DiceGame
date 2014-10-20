@@ -258,7 +258,7 @@ public class DiceGame implements Playable {
 	}
 
 	/**
-	 * The main function to play the game. Returns the winner of the game.
+	 * The main function to play the game. Returns the winner of the game, -1 for a tie.
 	 * 
 	 * @return int
 	 */
