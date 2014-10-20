@@ -19,55 +19,55 @@ import dice.LoadedDSix;
  */
 public class DiceGame implements Playable {
 	private int numPlayers;
-	
+
 	private int numDice;
-	
+
 	private Die die;
-	
+
 	private DiceCup diceCup;
-	
+
 	private int[][] playerRolls;
-	
+
 	private final String UNMATCH = "un";
-	
+
 	private final String PAIR = "pa";
-	
+
 	private final String THREE_OF_KIND = "th";
-	
+
 	private final String FOUR_OF_KIND = "fo";
-	
+
 	private final String FIVE_OF_KIND = "fi";
-	
+
 	private int loadedPlayer = -1;
-	
+
 	private Die loadedDie;
-	
+
 	private int gameWinner = -1;
-	
+
 	// Constructors
 	public DiceGame(Die die) {
 		this(2, die, 5);
 	}
-	
+
 	public DiceGame(int numPlayers) {
 		this(numPlayers, new DSix(), 5);
 	}
-	
+
 	public DiceGame(int numPlayers, DiceCup diceCup) {
 		this.setNumPlayers(numPlayers);
-		this.setDie(diceCup.getTypeOfDie());
 		this.setDiceCup(diceCup);
+		this.setDie(diceCup.getTypeOfDie());
 		this.setNumDice(diceCup.getNumOfDice());
 	}
-	
+
 	public DiceGame(int numPlayers, Die die, int numDice) {
 		this.setNumPlayers(numPlayers);
 		this.setDiceCup(new DiceCup(new DSix(), numDice));
 		this.setDie(die);
 	}
-	
+
 	// End Constructors
-	
+
 	/**
 	 * Takes a score string and parses it to return the serialized double for
 	 * ease of use. Ex. a pair of 2s with an unmatched 5 high would be 2.25
@@ -92,7 +92,7 @@ public class DiceGame implements Playable {
 			return 5 + num + numTwo;
 		return -1.0;
 	}
-	
+
 	/**
 	 * Evaluates a players roll in accordance with the game rules and returns
 	 * the players score string. Ex. a pair of 2s with an unmatched 5 high would
@@ -140,7 +140,7 @@ public class DiceGame implements Playable {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Find the highest unmatched number in the array. Pass -1 to matchedNum to
 	 * parse an array of unmatched numbers.
@@ -158,7 +158,7 @@ public class DiceGame implements Playable {
 				temp = i;
 		return temp;
 	}
-	
+
 	/**
 	 * Used to compare the players rolls and find a winner. Returns the winner.
 	 * 
@@ -178,7 +178,7 @@ public class DiceGame implements Playable {
 		}
 		return winner;
 	}
-	
+
 	/**
 	 * Function to populate the player rolls array.
 	 */
@@ -193,7 +193,7 @@ public class DiceGame implements Playable {
 				playerRolls[i] = this.diceCup.shake();
 		}
 	}
-	
+
 	/**
 	 * Get the dice cup that the game is using.
 	 * 
@@ -202,7 +202,7 @@ public class DiceGame implements Playable {
 	public DiceCup getDiceCup() {
 		return diceCup;
 	}
-	
+
 	/**
 	 * Get the die that is currently being used in the game.
 	 * 
@@ -211,7 +211,7 @@ public class DiceGame implements Playable {
 	public Die getDie() {
 		return die;
 	}
-	
+
 	/**
 	 * Get the winner of the game. Returns -1 for tie and 0 for no winner.
 	 * 
@@ -220,7 +220,7 @@ public class DiceGame implements Playable {
 	public int getGameWinner() {
 		return gameWinner;
 	}
-	
+
 	/**
 	 * Get the loaded player. Returns -1 if no player is loaded.
 	 * 
@@ -229,7 +229,7 @@ public class DiceGame implements Playable {
 	public int getLoadedPlayer() {
 		return loadedPlayer;
 	}
-	
+
 	/**
 	 * Get the number of dice being used to play the game
 	 * 
@@ -238,7 +238,7 @@ public class DiceGame implements Playable {
 	public int getNumDice() {
 		return numDice;
 	}
-	
+
 	/**
 	 * Get the number of players in the game.
 	 * 
@@ -247,7 +247,7 @@ public class DiceGame implements Playable {
 	public int getNumPlayers() {
 		return numPlayers;
 	}
-	
+
 	/**
 	 * Get the array of rolls that was generated.
 	 * 
@@ -256,7 +256,7 @@ public class DiceGame implements Playable {
 	public int[][] getPlayerRolls() {
 		return playerRolls;
 	}
-	
+
 	/**
 	 * The main function to play the game. Returns the winner of the game.
 	 * 
@@ -267,7 +267,7 @@ public class DiceGame implements Playable {
 		this.setGameWinner(this.findWinner());
 		return this.getGameWinner();
 	}
-	
+
 	/**
 	 * Prints the rolls of the last played game to the command line.
 	 */
@@ -281,7 +281,7 @@ public class DiceGame implements Playable {
 			System.out.println();
 		}
 	}
-	
+
 	/**
 	 * Set the dice cup to use in the game
 	 * 
@@ -291,7 +291,7 @@ public class DiceGame implements Playable {
 	public void setDiceCup(DiceCup diceCup) {
 		this.diceCup = diceCup;
 	}
-	
+
 	/**
 	 * Sets the die to use in the game.
 	 * 
@@ -303,7 +303,7 @@ public class DiceGame implements Playable {
 			this.getDiceCup().setTypeOfDie(die);
 		this.die = die;
 	}
-	
+
 	/**
 	 * Sets the game winner.
 	 * 
@@ -313,7 +313,7 @@ public class DiceGame implements Playable {
 	public void setGameWinner(int gameWinner) {
 		this.gameWinner = gameWinner;
 	}
-	
+
 	/**
 	 * Sets a player to use a loaded die. Default is a LoadedDSix
 	 * 
@@ -324,7 +324,7 @@ public class DiceGame implements Playable {
 		this.loadedPlayer = loadedPlayer;
 		this.loadedDie = new LoadedDSix();
 	}
-	
+
 	/**
 	 * Sets the player to use a loaded die and the die to use.
 	 * 
@@ -337,7 +337,7 @@ public class DiceGame implements Playable {
 		this.loadedPlayer = playerNum;
 		this.loadedDie = loadedDie;
 	}
-	
+
 	/**
 	 * Set the number of dice to use for the game
 	 * 
@@ -347,7 +347,7 @@ public class DiceGame implements Playable {
 	public void setNumDice(int numDice) {
 		this.numDice = numDice;
 	}
-	
+
 	/**
 	 * Set the number of players in the game.
 	 * 
