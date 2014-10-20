@@ -13,10 +13,9 @@ import dicegame.DiceGame;
  */
 public class FiveDice {
 	public static void main(String[] args) {
-		boolean cont = true;
 		Scanner in = new Scanner(System.in);
 		DiceGame dg = new DiceGame(2);
-		while (cont) {
+		while (true) {
 			int win = dg.play();
 			dg.printPlayerRolls();
 			switch (win) {
