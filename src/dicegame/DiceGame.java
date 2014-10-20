@@ -62,8 +62,8 @@ public class DiceGame implements Playable {
 	
 	public DiceGame(int numPlayers, Die die, int numDice) {
 		this.setNumPlayers(numPlayers);
-		this.setDie(die);
 		this.setDiceCup(new DiceCup(new DSix(), numDice));
+		this.setDie(die);
 	}
 	
 	// End Constructors
