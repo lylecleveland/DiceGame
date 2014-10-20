@@ -141,7 +141,7 @@ public abstract class Die implements Rollable {
 	}
 
 	/**
-	 * Sets the weight of the die in ounces.
+	 * Sets the weight of the die in grams.
 	 * 
 	 * @param weight
 	 *            Weight in grams.
