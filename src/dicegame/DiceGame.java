@@ -258,7 +258,8 @@ public class DiceGame implements Playable {
 	}
 
 	/**
-	 * The main function to play the game. Returns the winner of the game, -1 for a tie.
+	 * The main function to play the game. Returns the winner of the game, -1
+	 * for a tie.
 	 * 
 	 * @return int
 	 */
@@ -356,5 +357,13 @@ public class DiceGame implements Playable {
 	 */
 	public void setNumPlayers(int numPlayers) {
 		this.numPlayers = numPlayers;
+	}
+
+	/**
+	 * Method used to reset loaded player. Alternatively call setLoadedPlayer()
+	 * with a value of -1.
+	 */
+	public void unloadPlayer() {
+		this.setLoadedPlayer(-1);
 	}
 }
